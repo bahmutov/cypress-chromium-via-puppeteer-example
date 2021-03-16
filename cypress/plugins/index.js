@@ -7,10 +7,15 @@ module.exports = async (on, config) => {
     throw new Error('Could not find local browser')
   }
   const info = await browserFetcher.revisionInfo(revisions[0])
-  console('found Chromium %o', info)
+  console.log('found Chromium %o', info)
 
   return {
     browsers: [{
+      name: 'chromium',
+      family: 'chromium',
+      displayName: 'Chromium',
+      version: info.revision,
+      majorVersion: info.revision,
       path: info.executablePath
     }]
   }
