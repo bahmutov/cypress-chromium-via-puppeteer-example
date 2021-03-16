@@ -24,7 +24,11 @@ jobs:
       - run: npm ci
       - run: npm run cy:verify
       - run: npm run cy:info
-      - run: npm test
+      - run:
+          name: Cypress test
+          command: npm test
+          environment:
+            DEBUG: cypress:server:browsers
 
   # installs Chrome using Chocolatey
   # https://chocolatey.org/packages/GoogleChrome
@@ -41,7 +45,11 @@ jobs:
             PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true
       - run: npm run cy:verify
       - run: npm run cy:info
-      - run: npx cypress run --browser chrome --headless
+      - run:
+          name: Cypress Chrome tests
+          command: npx cypress run --browser chrome --headless
+          environment:
+            DEBUG: cypress:server:browsers
 
 workflows:
   win-build:
