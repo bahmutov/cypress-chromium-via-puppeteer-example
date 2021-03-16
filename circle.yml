@@ -15,6 +15,7 @@ executors:
       shell: "bash.exe"
 
 jobs:
+  # installs Chromium through Puppeteer package
   windows-test:
     working_directory: ~/app
     executor: win
@@ -23,8 +24,27 @@ jobs:
       - run: npm ci
       - run: npm run cy:verify
       - run: npm run cy:info
+      - run: npm test
+
+  # installs Chrome using Chocolatey
+  # https://chocolatey.org/packages/GoogleChrome
+  windows-chocolatey-test:
+    working_directory: ~/app
+    executor: win
+    steps:
+      - checkout
+      - run:
+          name: install
+          command: npm ci
+          environment:
+            PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true
+      - run:
+      - run: npm run cy:verify
+      - run: npm run cy:info
+      - run: npx cypress run --browser chrome --headless
 
 workflows:
   win-build:
     jobs:
       - windows-test
+      - windows-chocolatey-test

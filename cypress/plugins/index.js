@@ -9,15 +9,16 @@ module.exports = async (on, config) => {
   const info = await browserFetcher.revisionInfo(revisions[0])
   console.log('found Chromium %o', info)
 
-  return {
-    browsers: [{
-      name: 'chromium',
-      family: 'chromium',
-      displayName: 'Chromium',
-      version: info.revision,
-      majorVersion: info.revision,
-      path: info.executablePath,
-      channel: 'stable'
-    }]
+  const chromium = {
+    name: 'chromium',
+    family: 'chromium',
+    displayName: 'Chromium',
+    version: info.revision,
+    majorVersion: info.revision,
+    path: info.executablePath,
+    channel: 'dev'
   }
+  config.browsers.push(chromium)
+
+  return config
 }
