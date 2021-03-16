@@ -16,7 +16,8 @@ module.exports = async (on, config) => {
       displayName: 'Chromium',
       version: info.revision,
       majorVersion: info.revision,
-      path: info.executablePath
+      path: info.executablePath,
+      channel: 'stable'
     }]
   }
 }
