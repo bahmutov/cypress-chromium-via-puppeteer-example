@@ -4,7 +4,9 @@ module.exports = async (on, config) => {
   const browserFetcher = puppeteer.createBrowserFetcher()
   const revisions = await browserFetcher.localRevisions()
   if (revisions.length <= 0) {
-    throw new Error('Could not find local browser')
+    console.error('Could not find local Chromium browser')
+    // still use the local browsers
+    return
   }
   const info = await browserFetcher.revisionInfo(revisions[0])
   console.log('found Chromium %o', info)
