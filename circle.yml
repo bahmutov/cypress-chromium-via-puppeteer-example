@@ -14,6 +14,10 @@ executors:
       resource_class: "windows.medium"
       shell: "bash.exe"
 
+#
+# WARNING these jobs do not perform any caching
+#
+
 jobs:
   # installs Chromium through Puppeteer package
   windows-test:
