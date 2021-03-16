@@ -33,12 +33,12 @@ jobs:
     executor: win
     steps:
       - checkout
+      - run: choco install googlechrome
       - run:
           name: install
           command: npm ci
           environment:
             PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true
-      - run:
       - run: npm run cy:verify
       - run: npm run cy:info
       - run: npx cypress run --browser chrome --headless
