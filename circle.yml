@@ -1,0 +1,30 @@
+version: 2.1
+
+executors:
+  mac:
+    macos:
+      xcode: "10.1.0"
+    environment:
+      TERM: "xterm"
+  win:
+    # copied the parameters from
+    # https://circleci.com/developer/orbs/orb/circleci/windows
+    machine:
+      image: "windows-server-2019-vs2019:stable"
+      resource_class: "windows.medium"
+      shell: "bash.exe"
+
+jobs:
+  windows-test:
+    working_directory: ~/app
+    executor: win
+    steps:
+      - checkout
+      - run: npm ci
+      - run: npm run cy:verify
+      - run: npm run cy:info
+
+workflows:
+  win-build:
+    jobs:
+      - windows-test
